@@ -1,0 +1,539 @@
+/* =========================
+   1. Thiết lập chung
+   ========================= */
+:root {
+  --ink: #17211f;
+  --muted: #65716d;
+  --paper: #f5f5f0;
+  --surface: #ffffff;
+  --accent: #d84b32;
+  --line: #e2e5df;
+  --radius: 16px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.55;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================
+   2. Grid tổng thể của trang
+   Header - nội dung - Footer
+   ========================= */
+.page-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
+.header,
+.content-grid,
+.footer {
+  width: 100%;
+}
+
+.header,
+.footer {
+  grid-column: 1 / -1;
+}
+
+/* =========================
+   3. Header và thanh điều hướng
+   ========================= */
+.header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.header-top {
+  max-width: 1240px;
+  min-height: 88px;
+  margin: 0 auto;
+  padding: 18px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.brand,
+.footer-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+}
+
+.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  color: white;
+  background: var(--accent);
+  font-size: 16px;
+  letter-spacing: -0.05em;
+}
+
+.brand-name {
+  font-size: 22px;
+}
+
+.brand-name span {
+  color: var(--accent);
+}
+
+.header-date {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.header-link {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.header-link span {
+  color: var(--accent);
+  margin-left: 5px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  gap: 34px;
+  padding: 0 20px;
+  border-top: 1px solid #f0f1ed;
+  overflow-x: auto;
+}
+
+.navigation a {
+  flex: 0 0 auto;
+  padding: 14px 0 12px;
+  color: #4f5a56;
+  font-size: 13px;
+  font-weight: 700;
+  border-bottom: 3px solid transparent;
+}
+
+.navigation a:hover,
+.navigation .nav-active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* =========================
+   4. Grid nội dung lồng nhau
+   4 cột, mỗi hàng cơ bản 190px
+   ========================= */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 190px;
+  gap: 22px;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 34px 28px 48px;
+  align-content: start;
+}
+
+/* =========================
+   5. Thẻ bài viết
+   ========================= */
+.card {
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 5px 18px rgb(24 35 30 / 4%);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 26px rgb(24 35 30 / 10%);
+}
+
+/* Thẻ 1 chiếm 2 cột và 2 hàng */
+.card-1 {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+/* Thẻ 2 chiếm 2 hàng */
+.card-2 {
+  grid-row: span 2;
+}
+
+/* Thẻ 5 chiếm 2 cột */
+.card-5 {
+  grid-column: span 2;
+}
+
+.card-image {
+  position: relative;
+  flex: 0 0 46%;
+  min-height: 105px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.card-1 .card-image {
+  flex-basis: 48%;
+}
+
+/* Các hình minh họa được tạo bằng CSS, không cần tải ảnh ngoài */
+.card-image::before,
+.card-image::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+}
+
+.image-city {
+  background:
+    linear-gradient(180deg, rgb(20 38 49 / 0%) 35%, rgb(20 38 49 / 55%) 100%),
+    linear-gradient(135deg, #f3b57a 0%, #df8064 38%, #496c77 72%, #1e3e4b 100%);
+}
+
+.image-city::before {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 62%;
+  background: linear-gradient(90deg, #263d49, #486773, #263b45);
+  clip-path: polygon(0 70%, 8% 70%, 8% 30%, 17% 30%, 17% 58%, 25% 58%, 25% 5%, 34% 5%, 34% 66%, 43% 66%, 43% 22%, 53% 22%, 53% 50%, 62% 50%, 62% 0, 73% 0, 73% 60%, 83% 60%, 83% 27%, 92% 27%, 92% 72%, 100% 72%, 100% 100%, 0 100%);
+}
+
+.image-tech {
+  background: radial-gradient(circle at 65% 35%, #8af1e1 0 3%, transparent 4%), radial-gradient(circle at 65% 35%, transparent 0 18%, rgb(138 241 225 / 65%) 18.5% 19%, transparent 19.5% 30%, rgb(138 241 225 / 35%) 30.5% 31%, transparent 31.5%), linear-gradient(135deg, #173b53, #176b78 55%, #101f3e);
+}
+
+.image-tech::before {
+  width: 120px;
+  height: 120px;
+  right: 8%;
+  top: -18%;
+  border: 1px solid rgb(255 255 255 / 45%);
+  transform: rotate(35deg);
+  box-shadow: 0 0 0 14px rgb(255 255 255 / 6%), 0 0 0 30px rgb(255 255 255 / 5%);
+}
+
+.image-business {
+  background: linear-gradient(145deg, #f6d7a5, #e9a66f 52%, #b85b48);
+}
+
+.image-business::before {
+  inset: 20% 10% 18%;
+  background: linear-gradient(90deg, #fff3d6 0 13%, transparent 13% 20%, #fff3d6 20% 34%, transparent 34% 41%, #fff3d6 41% 58%, transparent 58% 65%, #fff3d6 65% 83%, transparent 83%);
+  clip-path: polygon(0 100%, 0 65%, 22% 65%, 22% 45%, 45% 45%, 45% 25%, 68% 25%, 68% 0, 100% 0, 100% 100%);
+  opacity: 0.85;
+}
+
+.image-lifestyle {
+  background: radial-gradient(ellipse at 50% 100%, #d9a36d 0 25%, transparent 26%), linear-gradient(135deg, #dce5d5, #90b2a0 55%, #557d73);
+}
+
+.image-lifestyle::before {
+  width: 58%;
+  height: 64%;
+  left: 21%;
+  bottom: 0;
+  border-radius: 50% 50% 0 0;
+  background: #f5e8ce;
+  box-shadow: inset 0 -8px 0 rgb(98 126 105 / 20%);
+}
+
+.image-lifestyle::after {
+  width: 28%;
+  height: 38%;
+  left: 36%;
+  bottom: 17%;
+  border-radius: 4px;
+  background: repeating-linear-gradient(0deg, #b96b4b 0 4px, #f0c78c 4px 8px);
+  transform: rotate(-8deg);
+}
+
+.image-sport {
+  background: linear-gradient(180deg, #a6c9d0 0%, #e9d5a7 45%, #41775e 46%, #1e5847 100%);
+}
+
+.image-sport::before {
+  left: 12%;
+  right: 12%;
+  bottom: 12%;
+  height: 32%;
+  border: 2px solid rgb(255 255 255 / 75%);
+  border-bottom: 0;
+  transform: perspective(100px) rotateX(8deg);
+}
+
+.image-culture {
+  background: radial-gradient(circle at 70% 25%, #f4c56b 0 8%, transparent 8.5%), linear-gradient(135deg, #6c4c77, #c16b73 55%, #e7a86b);
+}
+
+.image-culture::before {
+  width: 70px;
+  height: 110px;
+  left: 18%;
+  bottom: -18%;
+  background: rgb(255 237 205 / 75%);
+  border-radius: 45% 45% 0 0;
+  transform: rotate(20deg);
+}
+
+.image-label {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  padding: 5px 8px;
+  color: white;
+  background: rgb(23 33 31 / 75%);
+  border-radius: 5px;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.card-body {
+  padding: 15px 17px 18px;
+}
+
+.category {
+  margin: 0 0 8px;
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.category span {
+  padding: 0 4px;
+}
+
+.card h1,
+.card h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+}
+
+.card-1 h1 {
+  max-width: 560px;
+  font-size: clamp(23px, 2.4vw, 34px);
+  line-height: 1.16;
+}
+
+.card-2 h2 {
+  font-size: 19px;
+}
+
+.summary {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.card-1 .summary {
+  max-width: 560px;
+  font-size: 14px;
+}
+
+.read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.read-more span {
+  transition: transform 180ms ease;
+}
+
+.read-more:hover span {
+  transform: translateX(4px);
+}
+
+/* =========================
+   6. Footer toàn chiều rộng
+   ========================= */
+.footer {
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  color: #e8eeeb;
+  background: #172622;
+}
+
+.footer-brand {
+  font-size: 14px;
+}
+
+.footer-brand .brand-mark {
+  width: 34px;
+  height: 34px;
+  font-size: 13px;
+}
+
+.footer p,
+.footer small {
+  margin: 0;
+  color: #b8c5bf;
+  font-size: 12px;
+}
+
+/* =========================
+   7. Responsive cho máy tính bảng
+   ========================= */
+@media (max-width: 900px) {
+  .content-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 180px;
+    gap: 16px;
+    padding: 24px 18px 36px;
+  }
+
+  .card-1 {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .card-2 {
+    grid-row: span 2;
+  }
+
+  .card-5 {
+    grid-column: span 2;
+  }
+
+  .navigation {
+    justify-content: flex-start;
+    gap: 24px;
+  }
+
+  .header-top {
+    padding-inline: 18px;
+  }
+}
+
+/* =========================
+   8. Responsive cho điện thoại
+   ========================= */
+@media (max-width: 560px) {
+  .header-top {
+    min-height: 72px;
+    padding: 14px 16px;
+  }
+
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand-name {
+    font-size: 19px;
+  }
+
+  .header-date {
+    display: none;
+  }
+
+  .header-link {
+    font-size: 11px;
+  }
+
+  .navigation {
+    gap: 20px;
+    padding-inline: 16px;
+  }
+
+  .navigation a {
+    font-size: 12px;
+  }
+
+  .content-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-auto-rows: auto;
+    padding: 18px 14px 28px;
+    gap: 15px;
+  }
+
+  .card-1,
+  .card-2,
+  .card-5 {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .card-image,
+  .card-1 .card-image {
+    flex-basis: auto;
+    height: 165px;
+  }
+
+  .card-1 .card-image {
+    height: 210px;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+
+  .card-1 h1 {
+    font-size: 27px;
+  }
+
+  .card-2 h2,
+  .card h2 {
+    font-size: 18px;
+  }
+
+  .footer {
+    padding: 24px 18px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
